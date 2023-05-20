@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url('https://source.unsplash.com/1600x900/?flowers');
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .post-form {
+            margin-bottom: 20px;
+        }
+
+        .post-list .card {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center">게시판</h1>
+
+        <form id="post-form" class="post-form">
+            <div class="form-group">
+                <input type="text" id="title-input" class="form-control" placeholder="제목">
+            </div>
+            <div class="form-group">
+                <textarea id="content-input" class="form-control" placeholder="내용"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">게시물 작성</button>
+        </form>
+
+        <div id="post-list" class="post-list">
+            <!-- 게시물 목록이 표시될 영역 -->
+        </div>
+    </div>
+
+    <script>
+        const postForm = document.getElementById('post-form');
+        const titleInput = document.getElementById('title-input');
+        const contentInput = document.getElementById('content-input');
+        const postList = document.getElementById('post-list');
+
+        postForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const title = titleInput.value;
+            const content = contentInput.value;
+
+            createPost(title, content);
+
+            titleInput.value = '';
+            contentInput.value = '';
+        });
+
+        function createPost(title, content) {
+            const postElement = document.createElement('div');
+            postElement.classList.add('card');
+
+            const cardBodyElement = document.createElement('div');
+            cardBodyElement.classList.add('card-body');
+
+            const titleElement = document.createElement('h5');
+            titleElement.classList.add('card-title');
+            titleElement.textContent = title;
+
+            const contentElement = document.createElement('p');
+            contentElement.classList.add('card-text');
+            contentElement.textContent = content;
+
+            cardBodyElement.appendChild(titleElement);
+            cardBodyElement.appendChild(contentElement);
+
+            postElement.appendChild(cardBodyElement);
+
+            postList.appendChild(postElement);
+        }
